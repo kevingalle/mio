@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carta de Amor Especial</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* --- Tus estilos CSS originales --- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Crimson Text', serif;
+      background: linear-gradient(45deg, #ff9a9e, #fecfef, #fecfef, #ff9a9e);
+      background-size: 400% 400%;
+      animation: fondoGradiente 10s ease infinite;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 10px;
+    }
+
+    @keyframes fondoGradiente {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .cielo-estrellado {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .estrella {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      animation: brillarEstrella 3s ease-in-out infinite;
+    }
+
+    @keyframes brillarEstrella {
+      0%,
+      100% {
+        opacity: 0.3;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.5);
+      }
+    }
+
+    .corazones-magicos {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .corazon-magico {
+      position: absolute;
+      font-size: 20px;
+      animation: flotarMagico 12s linear infinite;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+    }
+
+    @keyframes flotarMagico {
+      0% {
+        transform: translateY(100vh) rotate(0deg) scale(0.5);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      90% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-10vh) rotate(360deg) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .sobre-contenedor {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+    }
+
+    .sobre {
+      width: min(350px, 90vw);
+      height: min(250px, 65vw);
+      background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+      border-radius: 15px;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: all 0.6s ease;
+      animation: flotarSobre 4s ease-in-out infinite;
+    }
+
+    @keyframes flotarSobre {
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-10px) rotate(1deg);
+      }
+    }
+
+    .sobre:active {
+      transform: scale(0.95);
+    }
+
+    .sobre-tapa {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: linear-gradient(135deg, #ff6b9d, #c44569, #ff9a9e);
+      border-radius: 15px 15px 0 0;
+      transform-origin: bottom;
+      transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sobre-tapa::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      animation: brilloTapa 3s linear infinite;
+    }
+
+    @keyframes brilloTapa {
+      0% {
+        left: -100%;
+      }
+
+      100% {
+        left: 100%;
+      }
+    }
+
+    .sobre.abierto .sobre-tapa {
+      transform: rotateX(180deg);
+    }
+
+    .sobre-texto {
+      color: white;
+      font-family: 'Dancing Script', cursive;
+      font-size: min(24px, 6vw);
+      font-weight: 600;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      z-index: 2;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .sobre-cuerpo {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50%;
+      background: linear-gradient(135deg, #fff, #f8f9fa);
+      border-radius: 0 0 15px 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .sobre-icono {
+      font-size: min(40px, 10vw);
+      animation: pulsar 2s ease-in-out infinite;
+    }
+
+    @keyframes pulsar {
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.2);
+      }
+    }
+
+    .instruccion {
+      margin-top: 30px;
+      color: white;
+      font-size: min(22px, 5.5vw);
+      font-family: 'Dancing Script', cursive;
+      font-weight: 600;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      animation: parpadear 2s ease-in-out infinite;
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    }
+
+    @keyframes parpadear {
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.6;
+      }
+    }
+
+    .carta-contenedor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 1s ease;
+      padding: 10px;
+    }
+
+    .carta-contenedor.mostrar {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .carta {
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+      border-radius: 20px;
+      padding: min(40px, 8vw);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+      position: relative;
+      overflow-y: auto;
+      transform: scale(0.7) translateY(100px);
+      transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .carta-contenedor.mostrar .carta {
+      transform: scale(1) translateY(0);
+    }
+
+    .carta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(255, 107, 157, 0.05), rgba(196, 69, 105, 0.05));
+      border-radius: 20px;
+      z-index: -1;
+    }
+
+    .cerrar-carta {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: linear-gradient(135deg, #ff6b9d, #c44569);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+      z-index: 10;
+    }
+
+    .cerrar-carta:active {
+      transform: scale(0.9);
+    }
+
+    .carta-titulo {
+      font-family: 'Playfair Display', serif;
+      font-size: min(36px, 8vw);
+      color: #c44569;
+      text-align: center;
+      margin-bottom: 30px;
+      font-weight: 700;
+      text-shadow: 0 2px 4px rgba(196, 69, 105, 0.1);
+      position: relative;
+      animation: tituloAparecer 2s ease-out;
+      line-height: 1.2;
+    }
+
+    @keyframes tituloAparecer {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .carta-titulo::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, #ff6b9d, #c44569);
+      border-radius: 2px;
+      animation: lineaCrecer 1s ease-out 1s backwards;
+    }
+
+    @keyframes lineaCrecer {
+      0% {
+        width: 0;
+      }
+
+      100% {
+        width: 80px;
+      }
+    }
+
+    .carta-mensaje {
+      font-size: min(18px, 4.5vw);
+      color: #4a4a4a;
+      line-height: 1.8;
+      text-align: left;
+      margin: 30px 0;
+      position: relative;
+      overflow: hidden;
+      animation: mensajeEscribir 6s steps(150) 2s forwards;
+      hyphens: auto;
+    }
+
+    .carta-mensaje p {
+      margin-bottom: 20px;
+      text-indent: 0;
+    }
+
+    .carta-mensaje::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+      animation: revelarTexto 6s steps(150) 2s forwards;
+    }
+
+    @keyframes revelarTexto {
+      0% {
+        width: 100%;
+      }
+
+      100% {
+        width: 0%;
+      }
+    }
+
+    .carta-pregunta {
+      text-align: center;
+      font-size: min(20px, 5vw);
+      color: #c44569;
+      font-weight: 600;
+      margin-top: 30px;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(196, 69, 105, 0.1));
+      border-radius: 15px;
+      border: 2px solid rgba(255, 107, 157, 0.3);
+      animation: preguntaResaltar 2s ease-in-out infinite;
+    }
+
+    @keyframes preguntaResaltar {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(255, 107, 157, 0.3);
+      }
+      50% {
+        transform: scale(1.02);
+        box-shadow: 0 0 30px rgba(255, 107, 157, 0.5);
+      }
+    }
+
+    .carta-firma {
+      text-align: center;
+      font-family: 'Dancing Script', cursive;
+      font-size: min(28px, 7vw);
+      color: #ff6b9d;
+      margin-top: 40px;
+      font-weight: 600;
+      opacity: 0;
+      animation: firmaAparecer 1.5s ease-in 6s forwards;
+      line-height: 1.4;
+    }
+
+    @keyframes firmaAparecer {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .decoracion-esquinas {
+      position: absolute;
+      width: min(50px, 12vw);
+      height: min(50px, 12vw);
+      border: 2px solid rgba(255, 107, 157, 0.4);
+      animation: esquinasBrillar 3s ease-in-out infinite;
+    }
+
+    @keyframes esquinasBrillar {
+      0%,
+      100% {
+        border-color: rgba(255, 107, 157, 0.4);
+      }
+
+      50% {
+        border-color: rgba(255, 107, 157, 0.8);
+      }
+    }
+
+    .decoracion-esquinas.top-left {
+      top: 20px;
+      left: 20px;
+      border-right: none;
+      border-bottom: none;
+      border-radius: 10px 0 0 0;
+    }
+
+    .decoracion-esquinas.top-right {
+      top: 20px;
+      right: 20px;
+      border-left: none;
+      border-bottom: none;
+      border-radius: 0 10px 0 0;
+    }
+
+    .decoracion-esquinas.bottom-left {
+      bottom: 20px;
+      left: 20px;
+      border-right: none;
+      border-top: none;
+      border-radius: 0 0 0 10px;
+    }
+
+    .decoracion-esquinas.bottom-right {
+      bottom: 20px;
+      right: 20px;
+      border-left: none;
+      border-top: none;
+      border-radius: 0 0 10px 0;
+    }
+
+    .emoji-corazon {
+      font-size: min(28px, 7vw);
+      animation: corazonLatir 2s infinite ease-in-out;
+      display: inline-block;
+      margin: 0 8px;
+      filter: drop-shadow(0 0 10px rgba(255, 107, 157, 0.6));
+    }
+
+    @keyframes corazonLatir {
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.15);
+      }
+    }
+
+    .brillo-magico {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 70%);
+      border-radius: 50%;
+      animation: brilloMagico 2s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes brilloMagico {
+      0%,
+      100% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.5);
+      }
+    }
+
+    /* Efectos táctiles para móvil */
+    @media (hover: none) {
+      .sobre:hover {
+        transform: none;
+      }
+
+      .sobre:active {
+        transform: scale(0.95);
+      }
+
+      .cerrar-carta:active {
+        transform: scale(0.9);
+      }
+    }
+
+    /* Optimización para pantallas muy pequeñas */
+    @media (max-width: 360px) {
+      .carta {
+        padding: 25px;
+      }
+
+      .carta-titulo {
+        font-size: 28px;
+        margin-bottom: 20px;
+      }
+
+      .carta-mensaje {
+        font-size: 16px;
+        margin: 20px 0;
+      }
+
+      .carta-firma {
+        font-size: 24px;
+        margin-top: 30px;
+      }
+    }
+
+    /* Pantallas muy grandes */
+    @media (min-width: 1200px) {
+      .sobre {
+        width: 400px;
+        height: 280px;
+      }
+
+      .carta {
+        max-width: 600px;
+        padding: 60px;
+      }
+
+      .carta-titulo {
+        font-size: 42px;
+      }
+
+      .carta-mensaje {
+        font-size: 20px;
+      }
+
+      .carta-firma {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <audio id="audio" preload="auto" loop>
+    <source src="teregalo.mp3" type="audio/mpeg" />
+    Tu navegador no soporta el audio HTML5.
+  </audio>
+
+  <div class="cielo-estrellado"></div>
+  <div class="corazones-magicos"></div>
+
+  <div class="sobre-contenedor">
+    <div class="sobre" onclick="abrirCarta()" ontouchstart="">
+      <div class="sobre-tapa">
+        <div class="sobre-texto">Para Brendita 💕</div>
+      </div>
+      <div class="sobre-cuerpo">
+        <div class="sobre-icono">📩</div>
+      </div>
+    </div>
+    <div class="instruccion">Toca el sobre para abrir la carta</div>
+  </div>
+
+  <div id="cartaContenedor" class="carta-contenedor" onclick="cerrarCarta()">
+    <div class="carta" onclick="event.stopPropagation()">
+      <button class="cerrar-carta" aria-label="Cerrar carta" onclick="cerrarCarta()">×</button>
+      <h1 class="carta-titulo">Brendita ❤️</h1>
+      <div class="carta-mensaje">
+        <p>Eres una niñita sumamente bonita, de ojitos preciosos y una sonrisita tan dulce que puede iluminar hasta el día más gris.</p>
+        
+        <p>Cada vez que hablo contigo, haces que mi mundo se detenga, que las preocupaciones se desvanezcan, y que solo exista esa sensación tan especial que provocas en mí.</p>
+        
+        <p>En esta carta quiero abrirte un poco mi corazón y decirte lo mucho que disfruto conocerte. Desde que llegaste a mi vida, las cosas han cambiado para mejor. Tu presencia, aunque sea en unas palabras, hace que mi día sea más especial.</p>
+        
+        <p>Cada momento contigo es un regalo que valoro mucho. Ojalá podamos ir construyendo algo especial paso a paso, sin prisas..</p>
+        
+        <p>Eres una persona que me inspira y que sin saberlo me da fuerzas. Me gustaría construir un camino con sueños compartidos.</p>
+        
+        <p>Tu ternura, tu forma de ser y tu lindo corazón me han mostrado que la felicidad está en los pequeños momentos que vivimos juntos. En cada palabra tuya, en cada sonrisa, hay algo que no dejo de pensar.</p>
+        
+        <p>Gracias por ser tú, tan bonita por fuera, pero aún más por dentro.</p>
+        
+        <p>Prometo seguir aquí, con ganas de conocerte más y hacerte sonreír siempre.</p>
+      </div>
+
+      <div class="carta-pregunta">
+        <strong>¿Te gustaría salir conmigo?</strong> 💕
+      </div>
+
+      <div class="carta-firma">Con todo mi cariño,<br>Alan 💕</div>
+
+      <div class="decoracion-esquinas top-left"></div>
+      <div class="decoracion-esquinas top-right"></div>
+      <div class="decoracion-esquinas bottom-left"></div>
+      <div class="decoracion-esquinas bottom-right"></div>
+    </div>
+  </div>
+
+  <script>
+    // Crear estrellas aleatorias en el fondo
+    const cieloEstrellado = document.querySelector('.cielo-estrellado');
+    for (let i = 0; i < 80; i++) {
+      const estrella = document.createElement('div');
+      estrella.classList.add('estrella');
+      estrella.style.top = `${Math.random() * 100}%`;
+      estrella.style.left = `${Math.random() * 100}%`;
+      estrella.style.animationDuration = `${2 + Math.random() * 3}s`;
+      estrella.style.width = estrella.style.height = `${1 + Math.random() * 3}px`;
+      cieloEstrellado.appendChild(estrella);
+    }
+
+    // Crear corazones flotantes aleatorios
+    const corazonesMagicos = document.querySelector('.corazones-magicos');
+    function crearCorazonMagico() {
+      const corazon = document.createElement('div');
+      corazon.classList.add('corazon-magico');
+      corazon.textContent = '💖';
+      corazon.style.left = `${Math.random() * 100}%`;
+      corazon.style.fontSize = `${12 + Math.random() * 18}px`;
+      corazon.style.animationDuration = `${8 + Math.random() * 6}s`;
+      corazonesMagicos.appendChild(corazon);
+
+      setTimeout(() => {
+        corazonesMagicos.removeChild(corazon);
+      }, 14000);
+    }
+
+    setInterval(crearCorazonMagico, 800);
+
+    // Crear brillos mágicos al abrir la carta
+    function crearBrilloMagico() {
+      const brillo = document.createElement('div');
+      brillo.classList.add('brillo-magico');
+      brillo.style.top = `${30 + Math.random() * 40}%`;
+      brillo.style.left = `${30 + Math.random() * 40}%`;
+      brillo.style.animationDuration = `${1 + Math.random() * 2}s`;
+      const carta = document.querySelector('.carta');
+      carta.appendChild(brillo);
+
+      setTimeout(() => {
+        carta.removeChild(brillo);
+      }, 2000);
+    }
+
+    function abrirCarta() {
+      const sobre = document.querySelector('.sobre');
+      const sobreContenedor = document.querySelector('.sobre-contenedor');
+      const cartaContenedor = document.getElementById('cartaContenedor');
+      const audio = document.getElementById('audio');
+
+      // Vibración para móviles
+      if (navigator.vibrate) {
+        navigator.vibrate(200);
+      }
+
+      // Reproducir audio
+      audio.play().catch(error => {
+        console.log('Error al reproducir audio:', error);
+      });
+
+      sobre.classList.add('abierto');
+
+      setTimeout(() => {
+        sobreContenedor.style.opacity = '0';
+        sobreContenedor.style.transform = 'scale(0.8)';
+
+        setTimeout(() => {
+          cartaContenedor.classList.add('mostrar');
+          sobreContenedor.style.display = 'none';
+
+          // Crear brillos mágicos
+          for (let i = 0; i < 10; i++) {
+            setTimeout(() => crearBrilloMagico(), i * 100);
+          }
+        }, 500);
+      }, 1200);
+    }
+
+    function cerrarCarta() {
+      const cartaContenedor = document.getElementById('cartaContenedor');
+      const sobreContenedor = document.querySelector('.sobre-contenedor');
+      const sobre = document.querySelector('.sobre');
+      const audio = document.getElementById('audio');
+
+      cartaContenedor.classList.remove('mostrar');
+
+      // Pausar y reiniciar audio
+      audio.pause();
+      audio.currentTime = 0;
+
+      setTimeout(() => {
+        sobreContenedor.style.display = 'block';
+        sobreContenedor.style.opacity = '1';
+        sobreContenedor.style.transform = 'scale(1)';
+
+        sobre.classList.remove('abierto');
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
